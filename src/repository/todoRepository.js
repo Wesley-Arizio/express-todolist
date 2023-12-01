@@ -6,30 +6,57 @@ export class TodoRepository {
     }
 
     async create({ title, description, isFinished = false }) {
-       return this.#database.get('INSERT INTO todos (title, description, isFinished) VALUES (:title, :description, :isFinished) RETURNING *;', {
+       const res = await this.#database.get('INSERT INTO todos (title, description, isFinished) VALUES (:title, :description, :isFinished) RETURNING *;', {
         ":title": title, 
         ":description": description, 
         ":isFinished": isFinished
        });
+
+       if (res) {
+        return {
+            ...res,
+            isFinished: !!res.isFinished
+           }
+       }
+
+       return res
     }
 
     delete({ id }) {
         return this.#database.run('DELETE FROM todos WHERE id = :id', { ":id": id });
     }
 
-    update({ id, title, description, isFinished }) {
-        return this.#database.get("UPDATE todos SET title = :title, description = :description, isFinished = :isFinished WHERE id = :id RETURNING *;", {
+    async update({ id, title, description, isFinished }) {
+        const res = await this.#database.get("UPDATE todos SET title = :title, description = :description, isFinished = :isFinished WHERE id = :id RETURNING *;", {
             ":id": id, 
             ":title": title, 
             ":description": description,
             ":isFinished": isFinished
         });
+
+        if (res) {
+            return {
+                ...res,
+                isFinished: !!res.isFinished
+            }
+        }
+
+        res
     }
 
-    read({ id }) {
-        return this.#database.get("SELECT id, title, description, isFinished FROM todos WHERE id = :id;", {
+    async read({ id }) {
+        const res = await this.#database.get("SELECT id, title, description, isFinished FROM todos WHERE id = :id;", {
             ":id": id
         });
+
+        if (res) {
+            return {
+                ...res,
+                isFinished: !!res.isFinished
+            }
+        }
+
+        return res;
     }
 
     async exists({ id }) {
@@ -40,10 +67,15 @@ export class TodoRepository {
         return !!result.record_exists
     }
 
-    readAll({ offset, limit }) {
-        return this.#database.all("SELECT id, title, description, isFinished FROM todos ORDER BY id ASC LIMIT :limit OFFSET :offset", {
+    async readAll({ offset, limit }) {
+        const res = await this.#database.all("SELECT id, title, description, isFinished FROM todos ORDER BY id ASC LIMIT :limit OFFSET :offset", {
             ":offset": offset,
             ":limit": limit
         })
+
+        return res.map((todo) => ({
+            ...todo,
+            isFinished: !!todo.isFinished
+        }))
     }
 }
