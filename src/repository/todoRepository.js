@@ -18,7 +18,7 @@ export class TodoRepository {
     }
 
     update({ id, title, description, isFinished }) {
-        return this.#database.run("UPDATE todos SET title = :title, description = :description, isFinished = :isFinished WHERE id = :id RETURNING *;", {
+        return this.#database.get("UPDATE todos SET title = :title, description = :description, isFinished = :isFinished WHERE id = :id RETURNING *;", {
             ":id": id, 
             ":title": title, 
             ":description": description,

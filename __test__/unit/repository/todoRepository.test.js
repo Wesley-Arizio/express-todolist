@@ -40,14 +40,12 @@ describe("todoRepository", () => {
       expect(inserted.isFinished).toBe(0);
    });
    it("should be able to update a todo item", async () => {
-    await repo.update({ id: 1, title: "write unit tests", description: "use jest to test todoRepository with sqlite", isFinished: true });
-
-    const inserted = await repo.read({ id: 1 });
-    expect(inserted.id).toBe(1);
-    expect(inserted.title).toBe("write unit tests");
-    expect(inserted.description).toBe("use jest to test todoRepository with sqlite");
+    const response = await repo.update({ id: 1, title: "write unit tests", description: "use jest to test todoRepository with sqlite", isFinished: true });
+    expect(response.id).toBe(1);
+    expect(response.title).toBe("write unit tests");
+    expect(response.description).toBe("use jest to test todoRepository with sqlite");
     // Sqlite stores boolan values as 0 or 1
-    expect(inserted.isFinished).toBe(1);
+    expect(response.isFinished).toBe(1);
    });
 
    it("should be able to delete a new todo item", async () => {
