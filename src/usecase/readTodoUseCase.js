@@ -16,6 +16,7 @@ export class ReadTodoUseCase {
 
             return todo;
         } catch (e) {
+            console.error(e);
             if (e instanceof NotFound) {
                 throw e
             };

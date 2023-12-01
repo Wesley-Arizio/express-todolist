@@ -8,6 +8,7 @@ export class CreateTodoUseCase {
         try {
             return this.#todoRepository.create({ title, description })
         } catch (e) {
+            console.error(e);
             throw new Error("internal server error");
         }
     }

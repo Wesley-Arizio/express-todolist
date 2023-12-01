@@ -18,6 +18,7 @@ export class DeleteTodoUseCase {
 
             return { deleted: true }
         } catch (e) {
+            console.error(e);
             if (e instanceof NotFound) {
                 throw e
             };

@@ -16,6 +16,7 @@ export class UpdateTodoUseCase {
 
             return this.#todoRepository.update({ id, title, description, isFinished });
         } catch (e) {
+            console.error(e);
             if (e instanceof NotFound) {
                 throw e
             };

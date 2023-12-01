@@ -8,6 +8,7 @@ export class ListTodosUseCase {
         try {
             return this.#todoRepository.readAll({ offset, limit })
         } catch (e) {
+            console.error(e);
             throw new Error("internal server error");
         }
     }
