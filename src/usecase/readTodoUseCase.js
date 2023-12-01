@@ -1,6 +1,6 @@
 import { NotFound } from "../error.js";
 
-export class GetTodoUseCase {
+export class ReadTodoUseCase {
     #todoRepository;
     constructor({ todoRepository }) {
        this.#todoRepository = todoRepository;

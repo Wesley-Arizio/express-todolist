@@ -1,9 +1,9 @@
 import { NotFound } from "../../../src/error.js";
-import { GetTodoUseCase } from "../../../src/usecase/getTodoUseCase.js"
+import { ReadTodoUseCase } from "../../../src/usecase/readTodoUseCase.js"
 
 import { jest } from "@jest/globals";
 
-describe("GetTodoUseCase", () => {
+describe("ReadTodoUseCase", () => {
     let usecase;
     let repository;
 
@@ -12,7 +12,7 @@ describe("GetTodoUseCase", () => {
         repository = {
             read: jest.fn(),
         };
-        usecase = new GetTodoUseCase({ todoRepository: repository });
+        usecase = new ReadTodoUseCase({ todoRepository: repository });
     })
 
     afterEach(() => {
