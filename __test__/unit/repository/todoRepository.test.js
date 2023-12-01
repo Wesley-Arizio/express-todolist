@@ -54,4 +54,20 @@ describe("todoRepository", () => {
     const inserted = await repo.read({ id: 1 });
     expect(inserted).toBeUndefined();
    });
+
+   it("should be able to list todo items", async () => {
+       const todo1 = await repo.create({ title: "todo1", description: "todo1", isFinished: false });
+       const todo2 = await repo.create({ title: "todo2", description: "todo2", isFinished: false });
+       const todo3 = await repo.create({ title: "todo3", description: "todo3", isFinished: true });
+       const todo4 = await repo.create({ title: "todo4", description: "todo4", isFinished: true });
+   
+       const expectedResult1 = [todo1, todo2];
+       const expectedResult2 = [todo3, todo4];
+   
+       const result1 = await repo.readAll({ offset: 0, limit: 2 });
+       expect(result1).toStrictEqual(expectedResult1);
+   
+       const result2 = await repo.readAll({ offset: 2, limit: 2 });
+       expect(result2).toStrictEqual(expectedResult2);
+   })
 });

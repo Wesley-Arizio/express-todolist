@@ -39,4 +39,11 @@ export class TodoRepository {
 
         return !!result.record_exists
     }
+
+    readAll({ offset, limit }) {
+        return this.#database.all("SELECT id, title, description, isFinished FROM todos ORDER BY id ASC LIMIT :limit OFFSET :offset", {
+            ":offset": offset,
+            ":limit": limit
+        })
+    }
 }
