@@ -46,7 +46,7 @@ npm test
 `GET /todo/<TODO_ID>` -> Para retornar dados específicos de um item. <br />
 `GET /todos?offset=<começo_listagem>&limit=<limite_resultados>` -> Para listagem de items, contêm paginação de items utilizando os campos offset e limit.<br />
 `POST /todo` -> Criação de um novo item. Necessário envio de dois campos `title` e `description`. <br />
-`DELETE /todo/<TODO_ID>` -> Deleta um item.
+`DELETE /todo/<TODO_ID>` -> Deleta um item. <br />
 `PUT /todo/<TODO_ID>` -> Atualiza os dados de um item. Necessário o envio de todos os dados do item como `title`, `description`, `isFinished`
 
 A estrutura de retorno de um item segue esse padrão:
